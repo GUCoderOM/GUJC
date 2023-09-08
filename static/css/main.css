@@ -1,0 +1,111 @@
+/* main.css - Your custom CSS rules */
+
+html {
+  text-align: center;
+  font-size: 150%;
+  font-family: Gothic, CenturyGothic, AppleGothic, sans-serif;
+  height: 100%;
+}
+
+body {
+  background-color: white; /* Set the background color to white */
+  color: black; /* Set the text color to black */
+}
+
+/* Updated navbar styles */
+.navbar {
+  background-color: #ffdc36; /* Set the navbar background color to #ffdc36 (secondary color) */
+}
+
+.navbar-nav .nav-link {
+  color: black !important; /* Set the text color of navbar links to black */
+}
+
+/* Adjust the navbar-toggler-icon styles */
+.navbar-toggler-icon {
+  background-color: transparent !important; /* Make the background of the icon transparent */
+  border: 2px solid black; /* Add a border to the icon */
+  border-radius: 4px; /* Add border radius for a cleaner look */
+}
+
+.center {
+  height: 80px;
+  position: relative;
+}
+
+.center button {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, 0%);
+  color: black !important; /* Set the button text color to black */
+  border-color: black !important; /* Set the button border color to black */
+  height: 150%;
+}
+
+.center #join {
+  transform: translate(-50%, -400%);
+}
+
+.center a {
+  color: black; /* Set the link text color to black */
+}
+
+/* Updated button styles */
+.btn-primary.main-action {
+  background-color: #ffdc36 !important; /* Set the button background color to #ffdc36 (secondary color) */
+  color: black !important; /* Set the text color to black */
+  border-color: #ffdc36 !important; /* Set the button border color to #ffdc36 (secondary color) */
+  transition: 1s;
+}
+
+.btn-primary.main-action:hover {
+  background-color: black !important; /* Change the background color on hover to black */
+  color: #ffdc36 !important; /* Change the text color on hover to #ffdc36 (secondary color) */
+  border-color: black !important; /* Change the border color on hover to black */
+  text-decoration: none;
+}
+
+/* Custom styles for the Contact Us button */
+.main-action a {
+  background-color: black !important;
+  color: white !important; /* Set the text color to white */
+  border-color: black !important;
+  transition-duration: 0.5s;
+}
+
+.main-action a:hover {
+  background-color: white !important; /* Change the background color on hover to white */
+  color: black !important;
+  border-color: white !important; /* Change the border color on hover to white */
+  text-decoration: none; /* Remove underline on hover */
+}
+
+/* Add this rule to override any other conflicting styles */
+.btn-secondary {
+  background-color: #ffdc36 !important; /* Set the button background color to #ffdc36 (secondary color) */
+  color: black !important; /* Set the text color to black */
+  border-color: #ffdc36 !important; /* Set the button border color to #ffdc36 (secondary color) */
+  transition: 1s;
+}
+
+.btn-secondary:hover {
+  background-color: black !important; /* Change the background color on hover to black */
+  color: #ffdc36 !important; /* Change the text color on hover to #ffdc36 (secondary color) */
+  border-color: black !important; /* Change the border color on hover to black */
+  text-decoration: none;
+}
+
+/* Add a white background with black text for the navbar */
+.navbar.bg-light {
+  background-color: #ffdc36 !important; /* Set the navbar background color to #ffdc36 (secondary color) */
+  color: black !important; /* Set the text color to black */
+}
+
+/* Set the background color for the about section to #ffdc36 (secondary color) with black text */
+.bg-white.py-5 {
+  background-color: white !important; /* Set the background color to white */
+  color: black !important; /* Set the text color to black */
+}

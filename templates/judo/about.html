@@ -1,0 +1,85 @@
+{% extends "judo/base.html" %}
+{% load static %}
+
+{% block title_block %}
+  GUJC - About Us
+{% endblock %}
+
+{% block body_block %}
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <h1 class="text-center mb-4">About Glasgow University Judo Club</h1>
+
+        <!-- Section 1: Introduction -->
+        <section>
+          <h2>Welcome to GUJC!</h2>
+          <p>
+            At GUJC, we are passionate about judo and fostering a strong sense of community. Our club is committed to promoting the art of judo and providing a welcoming environment for enthusiasts of all skill levels.
+          </p>
+          <p>
+            <img src="placeholder_image1.jpg" alt="GUJC Members in Action">
+          </p>
+        </section>
+
+        <!-- Section 2: Our History -->
+        <section>
+          <h2>Our Proud History</h2>
+          <p>
+            Founded in 1960, GUJC has a rich history of excellence in judo. Over the years, we have produced numerous national and international champions who started their judo journey right here.
+          </p>
+          <p>
+            <img src="placeholder_image2.jpg" alt="Historic GUJC Photo">
+          </p>
+        </section>
+
+        <!-- Section 3: Our Instructors -->
+        <section>
+          <h2>Meet Our Instructors</h2>
+          <p>
+            Our dedicated team of certified instructors brings years of experience to the mat. They are committed to helping you develop your judo skills, whether you're a beginner or an advanced practitioner.
+          </p>
+          <p>
+            <img src="placeholder_image3.jpg" alt="GUJC Instructors">
+          </p>
+        </section>
+
+        <!-- Section 4: Training Facilities -->
+        <section>
+          <h2>State-of-the-Art Facilities</h2>
+          <p>
+            Train in our modern facilities equipped with top-notch mats and training equipment. We provide a safe and comfortable environment for your judo practice.
+          </p>
+          <p>
+            <img src="placeholder_image4.jpg" alt="GUJC Training Facilities">
+          </p>
+        </section>
+
+        <!-- Section 5: Achievements -->
+        <section>
+          <h2>Our Achievements</h2>
+          <p>
+            Over the years, our members have achieved remarkable success in regional and national competitions. We take pride in our athletes' accomplishments and continue to strive for excellence.
+          </p>
+          <p>
+            <img src="placeholder_image5.jpg" alt="GUJC Achievements">
+          </p>
+        </section>
+
+        <!-- Section 6: Join Us -->
+        <section>
+          <h2>Join Us Today!</h2>
+          <p>
+            Ready to embark on your judo journey with GUJC? Join us for a training session and experience the thrill of judo. We welcome new members with open arms.
+          </p>
+          <p>
+            <img src="placeholder_image6.jpg" alt="Join GUJC">
+          </p>
+          <a href="{% url 'judo:contact' %}" class="btn btn-primary main-action"><span>Contact Us</span></a>
+        </section>
+      </div> <!-- End col-lg-8 -->
+    </div> <!-- End row -->
+  </div> <!-- End container -->
+
+  
+{% endblock %}

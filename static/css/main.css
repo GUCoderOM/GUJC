@@ -68,6 +68,25 @@ body {
   text-decoration: none;
 }
 
+/* Add this rule to style the buttons to match the "Join Now" button */
+.btn-primary {
+  background-color: #ffdc36 !important; /* Set the button background color to #ffdc36 (secondary color) */
+  color: black !important; /* Set the text color to black */
+  border-color: #ffdc36 !important; /* Set the button border color to #ffdc36 (secondary color) */
+  transition: 1s;
+}
+
+.btn-primary:hover {
+  background-color: black !important; /* Change the background color on hover to black */
+  color: #ffdc36 !important; /* Change the text color on hover to #ffdc36 (secondary color) */
+  border-color: black !important; /* Change the border color on hover to black */
+  text-decoration: none;
+}
+
+
+
+
+
 /* Custom styles for the Contact Us button */
 .main-action a {
   background-color: black !important;

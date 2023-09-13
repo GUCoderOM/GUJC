@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from judo.forms import FAQForm, FAQEditForm
+from judo.models import FAQ
 
 
 # Create your views here.
@@ -15,7 +17,14 @@ def about(request):
     return render(request, 'judo/about.html',context = {})
 
 def faq(request):
-    return render(request, 'judo/faq.html',context = {})
+    # Retrieve existing FAQs
+    faqs = FAQ.objects.all()
+
+    # Add the FAQs to the context dictionary
+    context = {'faqs': faqs}
+
+    # Render the 'judo/faq.html' template with the context
+    return render(request, 'judo/faq.html', context)
 
 def merch(request):
     return render(request, 'judo/merch.html',context = {})
@@ -32,7 +41,44 @@ def staff_merch(request):
     return render(request, 'judo/staff/staff_merch.html',context = {})
 
 def staff_faq(request):
-    return render(request, 'judo/staff/staff_faq.html',context = {})
+    # Handle form submission
+    if request.method == 'POST':
+        faq_form = FAQForm(request.POST)
+        if faq_form.is_valid():
+            faq_form.save()
+            return redirect('judo:dashboard')  # Redirect to the FAQ page after submission
+
+    else:
+        faq_form = FAQForm()
+
+    # Retrieve existing FAQs
+    faqs = FAQ.objects.all()
+
+    return render(request, 'judo/staff/staff_faq.html', {'faq_form': faq_form, 'faqs': faqs})
+
+def edit_faq(request, faq_id):
+    faq = get_object_or_404(FAQ, pk=faq_id)
+    if request.method == 'POST':
+        edit_form = FAQEditForm(request.POST, instance=faq)
+        if edit_form.is_valid():
+            edit_form.save()
+            return redirect('judo:staff_faq')
+
+    else:
+        edit_form = FAQEditForm(instance=faq)
+
+    faqs = FAQ.objects.all()
+    return render(request, 'judo/staff/staff_faq.html', {'faq_form': FAQForm(), 'edit_form': edit_form, 'faqs': faqs})
+
+def delete_faq(request, faq_id):
+    # Fetch the FAQ entry with the specified ID
+    faq = get_object_or_404(FAQ, pk=faq_id)
+
+    # Delete the FAQ entry from the database
+    faq.delete()
+
+    # Redirect back to the staff FAQ page after deletion
+    return redirect(reverse('judo:staff_faq'))
 
 def user_login(request):
     # If the request is a HTTP POST, try to pull out the relevant information.

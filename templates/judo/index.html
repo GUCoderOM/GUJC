@@ -3,7 +3,9 @@
 {% block title_block %}
   GUJC - Home
 {% endblock %}
-
+{% block navbar %}
+    {% include 'judo/user_navbar.html' %}
+{% endblock %}
 {% block body_block %}
   <div class="container">
     <div class="row">
@@ -22,7 +24,7 @@
     </div>
   </div>
 
-  <!-- Additional content for the landing page -->
+  <!-- Additional content for the landing page 
   <section class="bg-white py-5">
     <div class="container">
       <div class="row">
@@ -38,7 +40,7 @@
       </div>
     </div>
   </section>
-
+-->
   <section class="py-5">
     <div class="container">
       <div class="row">

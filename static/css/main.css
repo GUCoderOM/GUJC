@@ -109,3 +109,14 @@ body {
   background-color: white !important; /* Set the background color to white */
   color: black !important; /* Set the text color to black */
 }
+
+
+/* Custom CSS for medium-sized and rounded images */
+.medium-image {
+  max-width: 50%; /* Adjust the max-width to make the images slightly bigger (e.g., 50%) */
+  border-radius: 10px; /* Add rounded corners to the images */
+  display: block; /* Ensure images are block elements for proper spacing */
+  margin: 0 auto; /* Center align images within their containers */
+}
+
+

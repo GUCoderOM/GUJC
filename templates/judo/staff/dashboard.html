@@ -1,0 +1,34 @@
+{% extends "judo/base.html" %}
+
+{% block title_block %}
+  GUJC - Staff Dashboard
+{% endblock %}
+
+{% block navbar %}
+    {% include 'judo/staff/staff_navbar.html' %}
+{% endblock %}
+
+{% block body_block %}
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Merch</h5>
+            <p class="card-text">Manage merchandise products</p>
+            <a href="{% url 'judo:staff_merch' %}" class="btn btn-primary main-action">Go to Merch</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">FAQ</h5>
+            <p class="card-text">Manage FAQ entries</p>
+            <a href="{% url 'judo:staff_faq' %}" class="btn btn-primary main-action">Go to FAQ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

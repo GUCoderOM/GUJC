@@ -4,6 +4,32 @@
   GUJC - Contact Page
 {% endblock %}
 
-{% block body_block %}
+{% block navbar %}
+    {% include 'judo/user_navbar.html' %}
+{% endblock %}
 
+{% block body_block %}
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <h1 class="text-center mb-4">Contact Us</h1>
+
+        <!-- Contact Information -->
+        <div class="card mb-3">
+          <div class="card-header">
+            Contact Information
+          </div>
+          <div class="card-body">
+            <p><strong>Email:</strong> <a href="mailto:secretary-judo@gusa.gla.ac.uk">secretary-judo@gusa.gla.ac.uk</a></p>
+            <p><strong>Instagram:</strong> <a href="https://instagram.com/gujudoclub?igshid=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer">GU Judo Club Instagram</a></p>
+          </div>
+        </div>
+
+        <!-- Additional elements for user-friendliness -->
+        <p class="text-center">
+          If you have any inquiries, we recommend checking our <a href="{% url 'judo:faq' %}">FAQ page</a> first, as many questions can be resolved there.
+        </p>
+      </div>
+    </div>
+  </div>
 {% endblock %}

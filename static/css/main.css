@@ -13,11 +13,15 @@ body {
 }
 
 /* Updated navbar styles */
-.navbar {
-  background-color: #ffdc36; /* Set the navbar background color to #ffdc36 (secondary color) */
+.navbar{
+  background-color: #ffdc36 !important; /* Set the navbar background color to #ffdc36 (secondary color) */
 }
-
-.navbar-nav .nav-link {
+footer{
+  background-color: #ffdc36 !important;
+  padding: 20px 0; /* Add some padding to the top and bottom of the footer */
+  margin-top: 20px;
+}
+.navbar-nav .nav-link, footer a {
   color: black !important; /* Set the text color of navbar links to black */
 }
 

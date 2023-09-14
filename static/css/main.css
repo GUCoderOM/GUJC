@@ -18,8 +18,8 @@ body {
 }
 footer{
   background-color: #ffdc36 !important;
-  padding: 20px 0; /* Add some padding to the top and bottom of the footer */
-  margin-top: 20px;
+  padding: 60px 0; /* Add some padding to the top and bottom of the footer */
+  margin-top: 60px;
 }
 .navbar-nav .nav-link, footer a {
   color: black !important; /* Set the text color of navbar links to black */

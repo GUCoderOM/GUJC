@@ -87,7 +87,6 @@ def staff_faq(request):
     return render(request, 'judo/staff/staff_faq.html', {'faq_form': faq_form, 'faqs': faqs})
 
 def edit_faq(request, faq_id):
-    print("I have been accessed!")
     faq = get_object_or_404(FAQ, pk=faq_id)
     if request.method == 'POST':
         edit_form = FAQEditForm(request.POST, instance=faq)

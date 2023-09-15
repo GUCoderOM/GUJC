@@ -15,54 +15,31 @@
   <hr>
 
   <!-- Display existing FAQs -->
-    {% if faqs %}
-    <div class="accordion" id="faqAccordion">
+  {% if faqs %}
+  <div class="accordion" id="faqAccordion">
     {% for faq in faqs %}
-        <div class="card">
-        <div class="card-header" id="faq{{ faq.id }}">
-            <h5 class="mb-0">
-            <button class="btn btn-link text-dark" type="button" data-toggle="collapse" data-target="#collapse{{ faq.id }}" aria-expanded="false" aria-controls="collapse{{ faq.id }}">
-                {{ faq.question }}
-            </button>
-            <a href="{% url 'judo:edit_faq' faq.id %}" class="btn btn-sm btn-primary">Edit</a>
-            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal{{ faq.id }}">Delete</button>
-            </h5>
-        </div>
+    <div class="card">
+      <div class="card-header" id="faq{{ faq.id }}">
+        <h5 class="mb-0">
+          <button class="btn btn-link text-dark" type="button" data-toggle="collapse" data-target="#collapse{{ faq.id }}" aria-expanded="false" aria-controls="collapse{{ faq.id }}">
+            {{ faq.question }}
+          </button>
+          <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editModal{{ faq.id }}">Edit</a>
+          <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal{{ faq.id }}">Delete</button>
+        </h5>
+      </div>
 
-        <!-- Collapse content -->
-        <div id="collapse{{ faq.id }}" class="collapse" aria-labelledby="faq{{ faq.id }}" data-parent="#faqAccordion">
-            <div class="card-body">
-            {{ faq.answer | safe }}
-            </div>
+      <!-- Collapse content -->
+      <div id="collapse{{ faq.id }}" class="collapse" aria-labelledby="faq{{ faq.id }}" data-parent="#faqAccordion">
+        <div class="card-body">
+          {{ faq.answer | safe }}
         </div>
-
-          <!-- ... (collapse content) ... -->
-
-          <!-- Delete Confirmation Modal -->
-          <div class="modal fade" id="deleteModal{{ faq.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ faq.id }}" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="deleteModalLabel{{ faq.id }}">Confirm Deletion</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  Are you sure you want to delete this FAQ question?
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                  <a href="{% url 'judo:delete_faq' faq.id %}" class="btn btn-danger">Delete</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
+      </div>
     </div>
+    {% endfor %}
+  </div>
   {% else %}
-    <p>No FAQs available.</p>
+  <p>No FAQs available.</p>
   {% endif %}
 
   <hr>
@@ -75,14 +52,65 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 
-  <!-- Edit FAQ form (hidden by default) -->
-  {% if edit_form %}
-    <h2>Edit FAQ</h2>
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ edit_form|crispy }}
-      <button type="submit" class="btn btn-primary">Save Changes</button>
-    </form>
-  {% endif %}
+  <!-- Edit FAQ Modal -->
+  {% for faq in faqs %}
+  <div class="modal fade" id="editModal{{ faq.id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel{{ faq.id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel{{ faq.id }}">Edit FAQ</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Include the form tag here with the form fields -->
+          <form method="post" enctype="multipart/form-data" action="{% url 'judo:edit_faq' faq.id %}">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="edit_question">Question:</label>
+              <input type="text" class="form-control" id="edit_question" name="question" value="{{ faq.question }}">
+            </div>
+            <div class="form-group">
+              <label for="edit_answer">Answer:</label>
+              <textarea class="form-control" id="edit_answer" name="answer" rows="4">{{ faq.answer }}</textarea>
+            </div>
+            <!-- You should see the form fields here -->
+            <!-- Ensure that form fields are correctly defined in FAQEditForm -->
+
+            <!-- Add a submit button to save changes -->
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  <!-- Delete Confirmation Modal -->
+  {% for faq in faqs %}
+  <div class="modal fade" id="deleteModal{{ faq.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ faq.id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel{{ faq.id }}">Confirm Deletion</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete this FAQ question?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <a href="{% url 'judo:delete_faq' faq.id %}" class="btn btn-danger">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
 </div>
 {% endblock %}

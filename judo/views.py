@@ -48,9 +48,8 @@ def staff_merch(request):
         form = ItemForm()
 
     merch_items = Item.objects.all()
-    edit_form = None
     
-    return render(request, 'judo/staff/staff_merch.html', {'form': form, 'edit_form': edit_form,'merch_items': merch_items})
+    return render(request, 'judo/staff/staff_merch.html', {'form': form,'merch_items': merch_items})
 
 def edit_item(request, item_id):
     item = get_object_or_404(Item, pk=item_id)
@@ -64,7 +63,7 @@ def edit_item(request, item_id):
         edit_form = EditItemForm(instance=item)
     
     merch_items = Item.objects.all()
-    return render(request, 'judo/staff/staff_merch.html', {'form': ItemForm(), 'edit_form': edit_form, 'merch_items': merch_items})
+    return render(request, 'judo/staff/staff_merch.html', {'merch_items': merch_items})
 
 def delete_item(request, item_id):
     item = get_object_or_404(Item, pk=item_id)

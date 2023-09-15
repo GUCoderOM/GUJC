@@ -4,8 +4,8 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from judo.forms import FAQForm, FAQEditForm
-from judo.models import FAQ
+from judo.forms import FAQForm, FAQEditForm, ItemForm, EditItemForm
+from judo.models import FAQ, Item
 
 
 # Create your views here.
@@ -27,7 +27,8 @@ def faq(request):
     return render(request, 'judo/faq.html', context)
 
 def merch(request):
-    return render(request, 'judo/merch.html',context = {})
+    merch_items = Item.objects.all()
+    return render(request, 'judo/merch.html', {'merch_items': merch_items})
 
 def contact(request):
     return render(request, 'judo/contact.html',context = {})
@@ -38,7 +39,37 @@ def dashboard(request):
     return render(request, 'judo/staff/dashboard.html',context = {})
 
 def staff_merch(request):
-    return render(request, 'judo/staff/staff_merch.html',context = {})
+    if request.method == 'POST':
+        form = ItemForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('judo:staff_merch')  # Redirect to the same page after adding
+    else:
+        form = ItemForm()
+
+    merch_items = Item.objects.all()
+    edit_form = None
+    
+    return render(request, 'judo/staff/staff_merch.html', {'form': form, 'edit_form': edit_form,'merch_items': merch_items})
+
+def edit_item(request, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    
+    if request.method == 'POST':
+        edit_form = EditItemForm(request.POST,request.FILES, instance=item)
+        if edit_form.is_valid():
+            edit_form.save()
+            return redirect('judo:staff_merch')
+    else:
+        edit_form = EditItemForm(instance=item)
+    
+    merch_items = Item.objects.all()
+    return render(request, 'judo/staff/staff_merch.html', {'form': ItemForm(), 'edit_form': edit_form, 'merch_items': merch_items})
+
+def delete_item(request, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    item.delete()
+    return redirect('judo:staff_merch')
 
 def staff_faq(request):
     # Handle form submission
@@ -46,7 +77,7 @@ def staff_faq(request):
         faq_form = FAQForm(request.POST)
         if faq_form.is_valid():
             faq_form.save()
-            return redirect('judo:dashboard')  # Redirect to the FAQ page after submission
+            return redirect('judo:staff_faq')  # Redirect to the FAQ page after submission
 
     else:
         faq_form = FAQForm()
@@ -57,6 +88,7 @@ def staff_faq(request):
     return render(request, 'judo/staff/staff_faq.html', {'faq_form': faq_form, 'faqs': faqs})
 
 def edit_faq(request, faq_id):
+    print("I have been accessed!")
     faq = get_object_or_404(FAQ, pk=faq_id)
     if request.method == 'POST':
         edit_form = FAQEditForm(request.POST, instance=faq)

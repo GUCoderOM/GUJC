@@ -9,8 +9,35 @@
 {% endblock %}
 
 {% block body_block %}
-
+<div class="container mt-5">
+  <div class="row">
+    <!-- Add your staff merchandise content here -->
+    <div class="col-lg-8 offset-lg-2">
+      <!-- Display existing merchandise items -->
+      <div class="row">
+        {% for item in merch_items %}
+        <div class="col-lg-4 col-md-6 mb-3">
+          <div class="card">
+            <!-- Apply a fixed aspect ratio to the card container -->
+            <div class="card-container">
+              <div class="image-container">
+                <img src="{{ item.picture.url }}" class="card-img-top" alt="{{ item.name }}">
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ item.name }}</h5>
+              <p class="card-text">Price: ${{ item.price }}</p>
+              <a href="#" class="btn btn-primary">Buy Now</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div><br /> <br /> <br />
+    </div>
+  </div>
+</div>
 {% endblock %}
+
 
 {% block footer_block %}
     {% include 'judo/user_footer.html' %}

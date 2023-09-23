@@ -1,7 +1,8 @@
 {% extends "judo/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title_block %}
-  GUJC - Merch Page
+  GUJC - Merchandise
 {% endblock %}
 
 {% block navbar %}
@@ -10,15 +11,14 @@
 
 {% block body_block %}
 <div class="container mt-5">
+  <h1 class="text-center mb-4">Merch</h1>
   <div class="row">
-    <!-- Add your staff merchandise content here -->
+    <!-- Display existing merchandise items -->
     <div class="col-lg-8 offset-lg-2">
-      <!-- Display existing merchandise items -->
       <div class="row">
         {% for item in merch_items %}
         <div class="col-lg-4 col-md-6 mb-3">
           <div class="card">
-            <!-- Apply a fixed aspect ratio to the card container -->
             <div class="card-container">
               <div class="image-container">
                 <img src="{{ item.picture.url }}" class="card-img-top" alt="{{ item.name }}">
@@ -26,17 +26,41 @@
             </div>
             <div class="card-body">
               <h5 class="card-title">{{ item.name }}</h5>
-              <p class="card-text">Price: ${{ item.price }}</p>
-              <a href="#" class="btn btn-primary">Buy Now</a>
+              <p class="card-text">Price: £{{ item.price }}</p>
+              <!-- Add a Buy Now button to trigger the modal -->
+              <button class="btn btn-primary" data-toggle="modal" data-target="#buyModal{{ item.id }}">Buy Now</button>
             </div>
           </div>
         </div>
         {% endfor %}
-      </div><br /> <br /> <br />
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals for Buy Now -->
+{% for item in merch_items %}
+<div class="modal fade" id="buyModal{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="buyModalLabel{{ item.id }}" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="buyModalLabel{{ item.id }}">Buy Now</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>For the purposes of this demo, the Buy Now button has been disabled.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
 </div>
+{% endfor %}
+</div>
 {% endblock %}
+
 
 
 {% block footer_block %}

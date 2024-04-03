@@ -5,9 +5,15 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from judo.forms import FAQForm, FAQEditForm, ItemForm, EditItemForm
-from judo.models import FAQ, Item
+from judo.models import FAQ, Item, Price
 
+# Stripe
+from django.views import View
+from django.views.generic import TemplateView
+from gujc_project import settings
+import stripe
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
 # Create your views here.
 
 def index(request):
@@ -28,6 +34,16 @@ def faq(request):
 
 def merch(request):
     merch_items = Item.objects.all()
+
+    def get_context_data(self, **kwargs):
+        items = merch_items
+        prices = Price.objects.filter(Item=items)
+        context = super(merch,
+                        self).get_context_data(**kwargs)
+        context.update({
+            "merch_items": merch_items,
+            "prices": prices
+        })
     return render(request, 'judo/merch.html', {'merch_items': merch_items})
 
 def contact(request):
@@ -158,3 +174,35 @@ def user_logout(request):
     logout(request)
 # Take the user back to the homepage.
     return redirect(reverse('judo:index'))
+
+class CreateCheckoutSessionView(View):
+    def post(self, request, *args, **kwargs):
+        item = self.kwargs["fk"]
+        price = ''
+        try:
+            item = Item.objects.get(name = item)
+            price = Price.objects.get(item = item)
+        except Price.DoesNotExist:
+            return render(request, 'judo/error.html', context={'item': item, 'price':price})
+        domain = "https://yourdomain.com"
+        if settings.DEBUG:
+            domain = "http://127.0.0.1:8000/judo/"
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[
+                {
+                    'price': price.id,
+                    'quantity': 1,
+                },
+            ],
+            mode='payment',
+            success_url=domain + 'success/',
+            cancel_url=domain + 'cancel/',
+        )
+        return redirect(checkout_session.url)
+    
+class SuccessView(TemplateView):
+    template_name = "judo/success.html"
+ 
+class CancelView(TemplateView):
+    template_name = "judo/cancel.html"

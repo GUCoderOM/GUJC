@@ -32,7 +32,7 @@
             </div>
             <div class="card-body">
               <h5 class="card-title">{{ item.name }}</h5>
-              <p class="card-text">Price: ${{ item.price }}</p>
+              <p class="card-text">Price: ${{ item.itemPrice }}</p>
               <!-- Add edit and delete buttons here -->
               <button class="btn btn-primary" data-toggle="modal" data-target="#editModal{{ item.id }}">Edit</button>
               <br /><button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ item.id }}">Delete</button>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="form-group">
                   <label for="edit_price">Price:</label>
-                  <input type="text" class="form-control" id="edit_price" name="price" value="{{ item.price }}">
+                  <input type="text" class="form-control" id="edit_price" name="itemPrice" value="{{ item.itemPrice }}">
                 </div>
                 <div class="form-group">
                   <label for="edit_picture">Picture:</label>

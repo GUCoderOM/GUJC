@@ -17,8 +17,9 @@ class UserProfile(models.Model):
 class Item(models.Model):
     name = models.CharField(max_length=128, unique=False)
     slug = models.SlugField(unique=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    itemPrice = models.IntegerField()
     picture = models.ImageField(upload_to='item_images', blank=True)
+    stripe_product_id = models.CharField(max_length=100)
 
     class Meta:
         verbose_name_plural = 'Items'
@@ -32,6 +33,15 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+class Price(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    id = models.CharField(primary_key=True,max_length=100)
+    price = models.IntegerField(default = 60)
+    
+    def get_display_price(self):
+        return "{0:.2f}".format(self.price / 100)
+
 class FAQ(models.Model):
     question = models.CharField(max_length=255)
     answer = models.TextField()

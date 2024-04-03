@@ -25,15 +25,15 @@ class FAQEditForm(forms.ModelForm):
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ('name', 'price', 'picture')
+        fields = ('name', 'itemPrice', 'picture')
 
 class EditItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ('name', 'price', 'picture')  # Include the fields you want to edit
+        fields = ('name', 'itemPrice', 'picture')  # Include the fields you want to edit
 
     def __init__(self, *args, **kwargs):
         super(EditItemForm, self).__init__(*args, **kwargs)
         self.fields['name'].widget.attrs.update({'class': 'form-control'})
-        self.fields['price'].widget.attrs.update({'class': 'form-control'})
+        self.fields['itemPrice'].widget.attrs.update({'class': 'form-control'})
         self.fields['picture'].widget.attrs.update({'class': 'form-control-file'})

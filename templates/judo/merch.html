@@ -10,6 +10,8 @@
 {% endblock %}
 
 {% block body_block %}
+<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+<script src="https://js.stripe.com/v3/"></script>
 <div class="container mt-5">
   <h1 class="text-center mb-4">Merch</h1>
   <div class="row">
@@ -26,10 +28,13 @@
             </div>
             <div class="card-body">
               <h5 class="card-title">{{ item.name }}</h5>
-              <p class="card-text">Price: £{{ item.price }}</p>
+              <p class="card-text">Price: £{{ item.itemPrice }}</p>
               <!-- Add a Buy Now button to trigger the modal -->
-              <button class="btn btn-primary" data-toggle="modal" data-target="#buyModal{{ item.id }}">Buy Now</button>
-            </div>
+              <form action="{% url 'judo:create-checkout-session' item %}" method="POST">
+                {% csrf_token %}
+                <button class="btn btn-primary" action="{% url 'judo:create-checkout-session' 5 %}">Buy Now</button>
+              </form>
+              </div>
           </div>
         </div>
         {% endfor %}

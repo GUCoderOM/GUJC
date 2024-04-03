@@ -1,6 +1,12 @@
 from django.urls import path
 from judo import views  # Replace 'gujc_project' and 'judo' with your actual project and app names
 
+from judo.views import (
+    CreateCheckoutSessionView,
+    SuccessView,
+    CancelView,
+)
+
 app_name = 'judo'  # Replace 'judo' with your app name
 urlpatterns = [
     # Your existing URLs
@@ -16,6 +22,11 @@ urlpatterns = [
     path('staff/faq/', views.staff_faq, name='staff_faq'),
     path('staff/faq/edit_faq/<int:faq_id>/', views.edit_faq, name='edit_faq'),
     path('staff/faq/delete_faq/<int:faq_id>/', views.delete_faq, name='delete_faq'),
+
+    path('cancel/', CancelView.as_view(), name='cancel'),
+    path('error/', CancelView.as_view(), name='error'),
+    path('success/', SuccessView.as_view(), name='success'),
+    path('create-checkout-session/<fk>/', CreateCheckoutSessionView.as_view(), name='create-checkout-session')
 
     
     

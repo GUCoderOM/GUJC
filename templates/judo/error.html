@@ -1,0 +1,16 @@
+{% extends "judo/base.html" %}
+{% load static %}
+
+{% block title_block %}
+  GUJC - Error
+{% endblock %}
+
+{% block navbar %}
+    {% include 'judo/user_navbar.html' %}
+{% endblock %}
+
+{% block body_block %}
+    <section>
+        <p>Error! Item: {{product}}. Price object: {{price}}</p>
+    </section>
+{% endblock %}
